@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>佰仟分期购</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=0">
+    <meta name="format-detection" content="telephone=no" />
+    <link href="css/public.css" rel="stylesheet" type="text/css">
+    <link href="css/css.css" rel="stylesheet" type="text/css">
+    <link href="plugin/swiper/swiper.min.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="plugin/iscroll/iscroll.js"></script>
+    <script type="text/javascript" src="plugin/swiper/swiper.min.js"></script>
+    <script type="text/javascript" src="plugin/zepto/zepto.js"></script>
+    <script type="text/javascript" src="plugin/zepto/touch.js"></script>
+    <script src="js/public.js"></script>
+    <style>
+        .swiper-title{font-size: 0.24rem;background-color: #fff;padding:0 0.3rem;}
+        .swiper-title>span,.swiper-title>img{display: inline-block;vertical-align: middle;}
+        .swiper-title>span{color: #a5a2a6;line-height: 0.8rem;padding: 0 0.04rem;border-bottom: 2px solid #fff;}
+        .swiper-title>span.active{color: #3c8dbc;border-bottom: 2px solid #3c8dbc;}
+        .swiper-title>img{width: 0.5rem;height: 0.3rem;}
+        
+        .swiper-container{position: fixed;z-index: 1;top: 1rem;bottom: 0;left: 0;right: 0;}
+        .cont_wraper{position: absolute;z-index: 1;top: 0;bottom:1.2rem;overflow: hidden;border:1px solid #e6e6e6;background-color: #fff;left: 0.3rem;right: 0.3rem;}
+        .cont_wraper:before{content: '';position: absolute;height: 0.6rem;width: 100%;background:-webkit-linear-gradient( top,rgba(255,255,255,1),rgba(255,255,255,0));background:linear-gradient( top,rgba(255,255,255,1),rgba(255,255,255,0));top: 0;display: block;z-index: 3;}
+        .cont_wraper:after{content: '';position: absolute;height: 0.6rem;width: 100%;background:-webkit-linear-gradient( top,rgba(255,255,255,0),rgba(255,255,255,1));background:linear-gradient( top,rgba(255,255,255,0),rgba(255,255,255,1));bottom: 0;display: block;z-index: 3;}
+        .cont_wraper_3{bottom:3.2rem;}
+        .cont_wraper>div{position: absolute;z-index: 1;-webkit-tap-highlight-color: rgba(0,0,0,0);width: 100%;-webkit-transform: translateZ(0);-moz-transform: translateZ(0);-ms-transform: translateZ(0);-o-transform: translateZ(0);transform: translateZ(0);-webkit-touch-callout: none;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;-webkit-text-size-adjust: none;-moz-text-size-adjust: none;-ms-text-size-adjust: none;-o-text-size-adjust: none;text-size-adjust: none;}
+        .txt-wrap{padding: 0.1rem 0.56rem 0.2rem 0.32rem;font-size: 0.24rem;}
+        .txt-wrap table tr td:last-child>div{margin-left:0 !important;}
+        .next_btn{background-color: #3c8dbc;position: absolute;bottom: 0.2rem;left: 0.3rem;right: 0.3rem;}
+        .next_btn:active{background-color: #2777a5;}
+        .commit_btn{background-color: #c8c8c8;position: absolute;bottom: 0.2rem;left: 0.3rem;right: 0.3rem;}
+        .commit_btn.active{background-color: #3c8dbc;}
+        .sign_btn{position: absolute;bottom: 3.4rem;right: 0.5rem;width: 1.3rem;z-index: 4;font-size: 0.24rem;height: 0.6rem;line-height: 0.6rem;background: rgba(60,141,188,1) url(images/edit-btn.png) no-repeat 0.14rem 0.12rem;background-size: 0.34rem;padding-left: 0.3rem;}
+        .sign_btn:active{background-color: #2777a5;}
+        
+        .phone_wrap{position: absolute;bottom:1.1rem;left: 0;right: 0;z-index: 3;}
+        .phone_wrap .p_line{font-size: 0.24rem;color: #969696;}
+        .phone_wrap .p_line:first-child:after{display: none;}
+        .phone_wrap .p_line>span,.phone_wrap .p_line>input{display: inline-block;vertical-align: middle;}
+        .phone_wrap .p_line>span{line-height: 0.58rem;margin-right: 0.6rem;}
+        .phone_wrap .p_line>span:first-child{width: 1.5rem;text-align: right;}
+        .phone_wrap .p_line>input{border-radius: 3px;height: 0.46rem;font-size: 0.2rem;}
+        .phone_wrap .p_line>input[type="text"]{width: 1.6rem;border:1px solid #dcdcdc;margin-right: 0.6rem;padding: 0 0.04rem;}
+        .phone_wrap .p_line>input[type="button"]{width: 1.26rem;border:1px solid #2777a5;color: #3c8dbc !important;background-color: #fff;text-align: center;}
+        .phone_wrap .p_line>input[type="button"]:disabled{color: #3c8dbc !important;}
+        .phone_wrap .p_a_tips{font-size: 0.2rem;color: #969696;text-decoration: underline;display: block;margin: 0 auto;text-align: center;margin-top: 0.2rem;}
+
+        .sign_page{position: fixed;z-index:2;top:0;left: 0; width: 100%;height: 100%;display: none;}
+        .sign_page_show{display: block;}
+    </style>
+    <script type="text/javascript">
+        var contScroll=[];
+        function loaded () {
+            $('.swiper-wrapper .swiper-slide').each(function(){
+                var index = $(this).index();
+                contScroll[index]= new IScroll('.cont_wraper_'+index,{
+                    scrollbars: true,
+                    mouseWheel: true,
+                    interactiveScrollbars: true,
+                    shrinkScrollbars: 'scale',
+                    fadeScrollbars: true,click: true 
+                });
+            });
+        }
+        document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+    </script>
+    <script src="plugin/jquery/jquery-1.11.0.js"></script>
+    <script src="plugin/jSignature/jSignature.js"></script>
+    <!--script src="plugin/jSignature/jSignature.CompressorBase30.js"></script-->
+    <script src="plugin/jSignature/jSignature.CompressorSVG.js"></script>
+    <script src="plugin/jSignature/jSignature.UndoButton.js"></script> 
+    <!--script src="plugin/jSignature/signhere/jSignature.SignHere.js"></script--> 
+</head>
+<body onload="loaded()">
+    <div class="swiper-title">
+        <span class="active">随心还</span><img src="images/right-arrow.png" alt=""><span>风险提示函</span><img src="images/right-arrow.png" alt=""><span>助贷协议</span><img src="images/right-arrow.png" alt=""><span>三方协议</span>
+    </div>
+    <div class="swiper-container step_swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide swiper-no-swiping">
+                <div class="cont_wraper cont_wraper_0">
+                    <div>
+                        <div class="txt-wrap">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                                align="center">
+                                <tr>
+                                    <td align="center"><font size="4"><b>随心还服务申请书</b></font></td>
+                                </tr>
+                                <tr>
+                                    <td align="left">深圳市佰仟金融服务有限公司并贷款人：</td>
+                                </tr>
+                                <tr>
+                                    <td><div style="text-indent:2em;">本人与深圳市佰仟金融服务有限公司（以下简称“佰仟金融”）并贷款人签署了编号为${contractNo!}的《分期购消费贷款三方协议》及《申请表》（以下统称为贷款合同，本申请书所称贷款人与贷款合同中的贷款人一致），现向二司提出随心还服务申请，并自愿接受以下条款：</div></td>
+                                </tr>
+                                <tr>
+                                    <td><b>1.随心还服务内容介绍：</b></td>
+                                </tr>
+                                <tr>
+                                    <td>(1)借款人可针对任一笔贷款选择购买随心还服务，服务内容包括三项：延期还款、变更还款日期和优惠提前还款；借款人选择购买随心还服务后，应按月向佰仟金融支付随心还服务费，该费用包含在该笔贷款的每一期期款中，具体金额以该笔贷款申请表中的“月随心还服务费”数额为准。</td>
+                                </tr>
+                                <tr>
+                                    <td>(2)如借款人申请任一笔贷款后，佰仟金融实施了新的随心还服务收费标准，则已有贷款的随心还服务费仍按其原有标准缴纳。</td>
+                                </tr>
+                                <tr>
+                                    <td><b>2.延期还款：</b></td>
+                                </tr>
+                                <tr>
+                                    <td>(1)申请条件（借款人满足以下任意一条即可，但本申请书其他条款有更高要求的，申请人亦应符合）：</td>
+                                </tr>
+                                <tr>
+                                    <td>a.未使用过随心还服务任何项目的，借款人已按时足额偿付该笔贷款5期及以上期款；</td>
+                                </tr>
+                                <tr>
+                                    <td>b.第二次申请延期还款或在使用了变更还款日服务后又申请延期还款的，应在上次延期还款或变更还款日之后按时足额偿还两期及以上期款。</td>
+                                </tr>
+                                <tr>
+                                    <td>(2)借款人每次申请时最多只能使用一次延期还款，每次延期期数最少为一期，最多为两期。</td>
+                                </tr>
+                                <tr>
+                                    <td>(3)延期还款期间不计利息、财务管理费、客户服务费、增值服务费（如有）及随心还服务费。</td>
+                                </tr>
+                                <tr>
+                                    <td>(4)借款人提出延期还款申请时，如佰仟金融及贷款人合理认为借款人的情况不符合其风险管理要求和或有增加借款人违约的可能性，则其有权拒绝借款人的该次申请。</td>
+                                </tr>
+                                <tr>
+                                    <td><b>3.变更还款日：</b></td>
+                                </tr>
+                                <tr>
+                                    <td>(1)申请条件（借款人满足以下任意一条即可，但本申请书其他条款有更高要求的，申请人亦应符合）：</td>
+                                </tr>
+                                <tr>
+                                    <td>a.未使用过随心还服务任何项目的，按时足额偿付该笔贷款的两期及以上期款；</td>
+                                </tr>
+                                <tr>
+                                    <td>b.第二次申请变更还款日或在使用了延期还款服务后又申请变更还款日的，应在上次延期还款或变更还款日之后按时足额偿还两期及以上期款。</td>
+                                </tr>
+                                <tr>
+                                    <td>(2)如申请时借款人名下有未结清的重合贷款（重合贷款：指在借款人签署了多份由深圳市佰仟金融服务有限公司作为金融服务公司的贷款合同的情况下，其中一笔贷款与其他一笔或多笔贷款含有至少一个相同还款到期日的贷款），在借款人就本合同申请了变更还款日，则其他贷款的还款日均同时变更为新的还款日。</td>
+                                </tr>
+                                <tr>
+                                    <td>(3)新的还款日日期可在1-28日之间选择，但借款人提出变更申请之日与首个变更后还款日之间间隔应在5日（含）到35日（不含）之间（自申请日起算，含申请日）。</td>
+                                </tr>
+                                <tr>
+                                    <td><b>4.优惠提前还款：</b></td>
+                                </tr>
+                                <tr>
+                                    <td>借款人在足额偿还欲申请提前还款的贷款的连续三期期款后，可按照本条款关于提前还款的约定就该笔贷款申请提前还款，但无须另行支付提前还款费。</td>
+                                </tr>
+                                <tr>
+                                    <td><b>5.服务次数：</b></td>
+                                </tr>
+                                <tr>
+                                    <td>(1)购买随心还服务的每笔贷款的延期还款和变更还款日服务次数如下：分期期数为12期（含）以下的分别为一次，分期期数为12期以上的分别为累计两次。</td>
+                                </tr>
+                                <tr>
+                                    <td>(2)购买随心还服务的每笔贷款的延期还款的最高延期期数如下：分期期数为12期（含）以下的为一期，分期期数为12期以上的为累计两期，延期最高期数使用完毕的，即使还有随心还服务项下任何剩余服务次数的，也不能再次申请。</td>
+                                </tr>
+                                <tr>
+                                    <td>(3)借款人名下有重合贷款，借款人就本合同申请了变更还款日，如果其他贷款有一笔或多笔亦购买了随心还服务，则视同每笔贷款均使用了一次变更还款日服务。</td>
+                                </tr>
+                                <tr>
+                                    <td>(4)变更还款日及延期还款服务次数计算举例：借款人申请了24期的贷款，使用了一次延期一期的延期还款服务后，再次申请时，则只能申请一次变更还款日服务或延期一期的延期还款服务。</td>
+                                </tr>
+                                <tr>
+                                    <td>(5)一笔贷款借款人只能使用一次优惠提前还款服务，优惠提前还款服务生效后随心还服务终结。</td>
+                                </tr>
+                                <tr>
+                                    <td>6.借款人申请延期还款和变更还款日应在最近下一个还款到期日至少五日前致电佰仟金融提出；申请优惠提前还款的，应在最近下一个还款到期日至少十五日前致电佰仟金融提出。借款人在同一时间只能申请一项随心还款服务，在前一项随心还款服务使用结束并偿还两期及以上期款后，才能申请使用其他服务。如本申请第2条、第3条、第4条和第5条规定更高的要求，则以其规定为准。</td>
+                                </tr>
+                                <tr>
+                                    <td><b>7.取消随心还服务</b></td>
+                                </tr>
+                                <tr>
+                                    <td>(1)犹豫期：借款人《申请表》所列之申请日起的十五个自然日内（包含申请日当天）向佰仟金融致电申请取消随心还服务，则无需支付随心还服务费。</td>
+                                </tr>
+                                <tr>
+                                    <td>(2)借款人申请取消一笔贷款的随心还服务的，应在最近下一个还款到期日至少五日前（犹豫期取消除外）致电佰仟金融提出，申请取消成功后，借款人自申请取消之日的下一个自然月起停止支付随心还服务费。</td>
+                                </tr>
+                                <tr>
+                                    <td>(3)借款人申请取消随心还服务后，已经支付的随心还服务费不予退还，即使借款人从未使用过该服务；</td>
+                                </tr>
+                                <tr>
+                                    <td>(4)取消随心还服务一旦成功申请，则即时生效，随心还服务终结。同一笔贷款随心还服务包取消后不能再次申请。</td>
+                                </tr>
+                                <tr>
+                                    <td>(5)借款人已经使用过服务包内任何一项服务的，不能申请取消服务包。</td>
+                                </tr>
+                                <tr>
+                                    <td><b>8.</b> 申请时如借款人在本合同以及任何其他由佰仟金融作为其金融服务公司的合同项下期款处于逾期状态的，都不能申请使用或取消本服务包，或者申请时没有逾期，但在申请后首个延期还款日前、首个变更后还款日前、优惠提前还款生效前或取消服务包生效前发生逾期的，则申请自动失效。</td>
+                                </tr>
+                                <tr>
+                                    <td><b>9.</b> 借款人购买了随心还服务后，各期期款中包含的各款项按照以下顺序依次清偿：滞纳金（如有）、财务管理费、客户服务费、增值服务费（如有）、随心还服务费、利息、贷款本金。</td>
+                                </tr>
+                                <tr>
+                                    <td><b>10.</b> 贷款人及佰仟金融保留基于借款人的情况和风险程度减少随心还服务的服务范围或全部取消随心还服务的权利。</td>
+                                </tr>
+                                <tr>
+                                    <td><b>11.</b> 借款人使用本申请书约定的服务内容的，不产生违约金，也不影响借款人的征信记录。</td>
+                                </tr>
+                                <tr>
+                                    <td><b>12.</b> 借款人承诺：借款人在本申请下方签字则视为接受本申请的全部条款，佰仟金融及贷款人在贷款合同上签章即视为三方对本申请书达成了一致协议，协议生效日期同《申请表》签署日期。</td>
+                                </tr>
+                                <tr>
+                                    <td><b>13.</b> 除正常纸质签署方式外借款人也可以通过佰仟金融提供的设备在本申请书上进行电子签名。借款人同意本申请书的签署可以采用电子签章、电子文本形式，认可电子签章、电子文本的法律效力，并同意采用数据电文的形式保管。</td>
+                                </tr>
+                                <tr>
+                                    <td><b>14.</b>本申请作为贷款合同的附件与贷款合同具有同等效力，借款人授权佰仟金融将其与贷款合同采取同样方式一并保存处理。</td>
+                                </tr>
+                                <tr><td>&nbsp;</td></tr>
+                                <tr>
+                                    <td align="left"><div style="margin-left:40px;">
+                                    销售顾问签名：${saUserName!}
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;借款人签名：${customerName!}
+                                    </div></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <a href="javascript:;" class="btn next_btn">下一步</a>
+            </div>
+            <div class="swiper-slide swiper-no-swiping">
+                <div class="cont_wraper cont_wraper_1">
+                    <div>
+                        <div class="txt-wrap">
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持甲方有责任在顾问过程中给予乙方积极配合与支持甲方有责任在顾问过程中给予乙方积极配</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持合与支持甲方有责任在顾问过程中给予乙</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                        </div>
+                    </div>
+                </div>
+                <a href="javascript:;" class="btn next_btn">下一步</a>
+            </div>
+            <div class="swiper-slide swiper-no-swiping">
+                <div class="cont_wraper cont_wraper_2">
+                    <div>
+                        <div class="txt-wrap">
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持甲方有责任在顾问过程中给予乙方积极配合与支持甲方有责任在顾问过程中给予乙方积极配</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持合与支持甲方有责任在顾问过程中给予乙</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                        </div>
+                    </div>
+                </div>
+                <a href="javascript:;" class="btn next_btn">下一步</a>
+            </div>
+            <div class="swiper-slide swiper-no-swiping">
+                <div class="cont_wraper cont_wraper_3">
+                    <div>
+                        <div class="txt-wrap">
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持甲方有责任在顾问过程中给予乙方积极配合与支持甲方有责任在顾问过程中给予乙方积极配</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持合与支持甲方有责任在顾问过程中给予乙</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <img id="sign_test" src="" alt="">
+                        </div>
+                    </div>
+                </div>
+                <a href="javascript:;" class="btn sign_btn">签名</a>
+                <div class="phone_wrap">
+                    <div class="p_line one_px_border"><span>手机号码：</span><span>18300004535</span></div>
+                    <div class="p_line one_px_border"><span>验证码：</span><input type="text" class="code_input"><input type="button" value="获取验证码" class="get_code"></div>
+                    <a href="javascript:;" class="p_a_tips">没有收到点击获取语音验证码</a>
+                </div>
+                <a href="javascript:;" class="btn commit_btn">提交</a>
+            </div>
+        </div>
+    </div>
+    <iframe class="sign_page" src="sign.html"></iframe>
+    <script>
+        $(function(){
+            var stepSwiper = new Swiper('.step_swiper', {
+                autoHeight: true,
+            });
+
+            $('.code_input').on('input propertychange',function(){
+                if(this.value.length>0){
+                    $('.commit_btn').addClass('active');
+                }else{
+                    $('.commit_btn').removeClass('active');
+                }
+            });
+            /*获取验证码*/
+            $('.get_code').on('tap',function(){
+                getCode(this,'.code_input',60,function(){
+                    console.log('send msg..');
+                });
+            });
+            /*签名*/
+            $('.sign_btn').on('tap',function(){
+                $('.sign_page').addClass('sign_page_show');
+                
+            });
+            /*头部导航*/
+            $('.swiper-title>span').on('tap',function(e){
+                var this_index = $(this).index()/2;
+                var curr_index = $('.swiper-title>span.active').index()/2;
+                if(this_index<curr_index){
+                    stepSwiper.slideTo((this_index),200,true);
+                    $('.swiper-title>span').removeClass('active');
+                    $(this).addClass('active');    
+                }
+                
+            });
+            /*下一步*/
+            $('.next_btn').each(function(){
+                var slideIndex = Number($(this).parents('.swiper-slide').index());
+                $(this).on('tap',{index:slideIndex},function(e){
+                    stepSwiper.slideTo((e.data.index+1),200,true);
+                    $('.swiper-title>span').removeClass('active');
+                    $('.swiper-title>span').eq(e.data.index+1).addClass('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

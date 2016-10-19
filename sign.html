@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>佰仟分期购</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=0">
+    <meta name="format-detection" content="telephone=no" />
+    <link href="css/public.css" rel="stylesheet" type="text/css">
+    <link href="css/css.css" rel="stylesheet" type="text/css">
+    <script src="js/public.js"></script>
+    <style>
+        .sign_panel{position: fixed;z-index:2;top:0;left: 0;right:0;bottom: 0;background:rgba(0,0,0,.84);-webkit-animation: animDialog .4s ease-out;animation: animDialog .4s ease-out;-webkit-backface-visibility: hidden;backface-visibility: hidden;-webkit-perspective: 1000;perspective: 1000;-webkit-transform-style: preserve-3d;}
+        #signature{position: absolute;top:0;bottom: 0;left: 0;right: 0;z-index: 3;}
+        .sign_panel .img_wrap{position: absolute;top:0.4rem;width: 100%;z-index: 4;}
+        .sign_panel .img_wrap>img{position: absolute;right: 0.4rem;width: 0.5rem;height: 0.5rem;}
+        /* 横屏 */
+        @media screen and (orientation:landscape){
+            .sign_panel .img_wrap .exit_full_screen{display: block;}
+            .sign_panel .img_wrap .full_screen{display: none;}
+        }
+        /* 竖屏 */
+        @media screen and (orientation:portrait){
+            .sign_panel .img_wrap .exit_full_screen{display: none;}
+            .sign_panel .img_wrap .full_screen{display: block;}
+        }
+        .sign_panel .btn_wrap{position: absolute;bottom:1.2rem;width: 100%;z-index: 4;}
+        .sign_panel .btn_wrap>a{line-height: 0.6rem;width: 1.3rem;}
+        .sign_panel .a_confirm{background-color: #00c0ef;position: absolute;left: 25%;margin-left:-0.65rem;}
+        .sign_panel .a_resign{background-color: #fff;color:#00c0ef;border: 1px solid #00c0ef;position: absolute;right: 25%;margin-right:-0.65rem; }
+    </style>
+    <script src="plugin/jquery/jquery-1.11.0.js"></script>
+    <script src="plugin/jSignature/jSignature.js"></script>
+    <!--script src="plugin/jSignature/jSignature.CompressorBase30.js"></script-->
+    <script src="plugin/jSignature/jSignature.CompressorSVG.js"></script>
+    <!--script src="plugin/jSignature/jSignature.UndoButton.js"></script--> 
+    <!--script src="plugin/jSignature/signhere/jSignature.SignHere.js"></script--> 
+</head>
+<body>
+    <div class="sign_panel">
+        <div class="img_wrap">
+            <img class="exit_full_screen" src="images/exit-full-screen.png" alt="">
+            <img class="full_screen" src="images/full-screen.png" alt="">
+        </div>
+        <div id="signature"></div>
+        <div class="btn_wrap">
+            <a href="javascript:;" class="btn a_confirm">确认</a>
+            <a href="javascript:;" class="btn a_resign">重写</a>
+        </div>
+    </div>
+    <script>
+        $(function(){
+            /*签名*/
+            $("#signature").jSignature({color:"#aaa",lineWidth:5,width:"100%",height:"100%"});
+            /*签名确认*/
+            $('.sign_panel .a_confirm').on('click',function(){
+                var signData = $("#signature").jSignature("getData","image/svg+xml;base64");
+                console.log('data:'+signData[0]+','+signData[1]);
+                var doc = window.parent.document;
+                var signImgWrap = doc.getElementById('sign_test');
+                signImgWrap.src = 'data:'+signData[0]+','+signData[1];
+                window.parent.contScroll[3].refresh();
+                $(doc).find('.sign_page').removeClass('sign_page_show');
+            });
+            /*签名清除*/
+            $('.sign_panel .a_resign').on('click',function(){
+                $("#signature").jSignature("clear");
+            });
+
+            $('.exit_full_screen').on('click',function(){
+                alert(screen.orientation.type);
+                screen.orientation.lock("portrait-secondary");
+            });
+            $('.full_screen').on('click',function(){
+                alert(screen.orientation.type);
+                screen.orientation.lock("portrait-primary");
+            });
+        });
+    </script>
+</body>
+</html>

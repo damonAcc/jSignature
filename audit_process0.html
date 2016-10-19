@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>佰仟分期购</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=0">
+    <meta name="format-detection" content="telephone=no" />
+    <link href="css/public.css" rel="stylesheet" type="text/css">
+    <link href="css/css.css" rel="stylesheet" type="text/css">
+    <link href="plugin/swiper/swiper.min.css" rel="stylesheet"  type="text/css">
+    <script type="text/javascript" src="plugin/iscroll/iscroll.js"></script>
+    <script type="text/javascript" src="plugin/swiper/swiper.min.js"></script>
+    <script type="text/javascript" src="plugin/zepto/zepto.js"></script>
+    <script type="text/javascript" src="plugin/zepto/touch.js"></script>
+    <script src="js/public.js"></script>
+    <style>
+        .swiper-title{font-size: 0.24rem;background-color: #fff;padding:0 0.3rem;}
+        .swiper-title>span,.swiper-title>img{display: inline-block;vertical-align: middle;}
+        .swiper-title>span{color: #a5a2a6;line-height: 0.8rem;padding: 0 0.04rem;border-bottom: 2px solid #fff;}
+        .swiper-title>span.active{color: #3c8dbc;border-bottom: 2px solid #3c8dbc;}
+        .swiper-title>img{width: 0.5rem;height: 0.3rem;}
+        
+        .swiper-container{position: fixed;z-index: 1;top: 1rem;bottom: 0;left: 0;right: 0;}
+        .cont_wraper{position: absolute;z-index: 1;top: 0;bottom:1.2rem;overflow: hidden;border:1px solid #e6e6e6;background-color: #fff;left: 0.3rem;right: 0.3rem;}
+        .cont_wraper:before{content: '';position: absolute;height: 0.6rem;width: 100%;background:-webkit-linear-gradient( top,rgba(255,255,255,1),rgba(255,255,255,0));background:linear-gradient( top,rgba(255,255,255,1),rgba(255,255,255,0));top: 0;display: block;z-index: 3;}
+        .cont_wraper:after{content: '';position: absolute;height: 0.6rem;width: 100%;background:-webkit-linear-gradient( top,rgba(255,255,255,0),rgba(255,255,255,1));background:linear-gradient( top,rgba(255,255,255,0),rgba(255,255,255,1));bottom: 0;display: block;z-index: 3;}
+        .cont_wraper_3{bottom:3.2rem;}
+        .cont_wraper>div{position: absolute;z-index: 1;-webkit-tap-highlight-color: rgba(0,0,0,0);width: 100%;-webkit-transform: translateZ(0);-moz-transform: translateZ(0);-ms-transform: translateZ(0);-o-transform: translateZ(0);transform: translateZ(0);-webkit-touch-callout: none;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;-webkit-text-size-adjust: none;-moz-text-size-adjust: none;-ms-text-size-adjust: none;-o-text-size-adjust: none;text-size-adjust: none;}
+        .txt-wrap{padding: 0.1rem 0.56rem 0.2rem 0.32rem;}
+        .next_btn{background-color: #3c8dbc;position: absolute;bottom: 0.2rem;left: 0.3rem;right: 0.3rem;}
+        .next_btn:active{background-color: #2777a5;}
+        .commit_btn{background-color: #c8c8c8;position: absolute;bottom: 0.2rem;left: 0.3rem;right: 0.3rem;}
+        .commit_btn.active{background-color: #3c8dbc;}
+        .sign_btn{position: absolute;bottom: 3.4rem;right: 0.5rem;width: 1.3rem;z-index: 4;font-size: 0.24rem;height: 0.6rem;line-height: 0.6rem;background: rgba(60,141,188,1) url(images/edit-btn.png) no-repeat 0.14rem 0.12rem;background-size: 0.34rem;padding-left: 0.3rem;}
+        .sign_btn:active{background-color: #2777a5;}
+        
+        .phone_wrap{position: absolute;bottom:1.1rem;left: 0;right: 0;z-index: 3;}
+        .phone_wrap .p_line{font-size: 0.24rem;color: #969696;}
+        .phone_wrap .p_line:first-child:after{display: none;}
+        .phone_wrap .p_line>span,.phone_wrap .p_line>input{display: inline-block;vertical-align: middle;}
+        .phone_wrap .p_line>span{line-height: 0.58rem;margin-right: 0.6rem;}
+        .phone_wrap .p_line>span:first-child{width: 1.5rem;text-align: right;}
+        .phone_wrap .p_line>input{border-radius: 3px;height: 0.46rem;font-size: 0.2rem;}
+        .phone_wrap .p_line>input[type="text"]{width: 1.6rem;border:1px solid #dcdcdc;margin-right: 0.6rem;padding: 0 0.04rem;}
+        .phone_wrap .p_line>input[type="button"]{width: 1.26rem;border:1px solid #2777a5;color: #3c8dbc !important;background-color: #fff;text-align: center;}
+        .phone_wrap .p_line>input[type="button"]:disabled{color: #3c8dbc !important;}
+        .phone_wrap .p_a_tips{font-size: 0.2rem;color: #969696;text-decoration: underline;display: block;margin: 0 auto;text-align: center;margin-top: 0.2rem;}
+
+        .sign_panel{position: fixed;z-index:2;top:0;bottom: 0;left: 0;right: 0;background:rgba(0,0,0,.84);-webkit-animation: animDialog .4s ease-out;animation: animDialog .4s ease-out;-webkit-backface-visibility: hidden;backface-visibility: hidden;-webkit-perspective: 1000;perspective: 1000;-webkit-transform-style: preserve-3d;display:none;}
+        .sign_panel_show{display: block;}
+        #signature{position: absolute;top:0;bottom: 0;left: 0;right: 0;z-index: 3;}
+        .sign_panel .img_wrap{position: absolute;top:0.4rem;width: 100%;z-index: 4;}
+        .sign_panel .img_wrap>img{position: absolute;right: 0.4rem;width: 0.5rem;height: 0.5rem;}
+        /* 横屏 */
+        @media screen and (orientation:landscape){
+            .sign_panel .img_wrap .exit_full_screen{display: block;}
+            .sign_panel .img_wrap .full_screen{display: none;}
+        }
+        /* 竖屏 */
+        @media screen and (orientation:portrait){
+            .sign_panel .img_wrap .exit_full_screen{display: none;}
+            .sign_panel .img_wrap .full_screen{display: block;}
+        }
+        .sign_panel .btn_wrap{position: absolute;bottom:1.2rem;width: 100%;z-index: 4;}
+        .sign_panel .btn_wrap>a{line-height: 0.6rem;width: 1.3rem;}
+        .sign_panel .a_confirm{background-color: #00c0ef;position: absolute;left: 25%;margin-left:-0.65rem;}
+        .sign_panel .a_resign{background-color: #fff;color:#00c0ef;border: 1px solid #00c0ef;position: absolute;right: 25%;margin-right:-0.65rem; }
+    </style>
+    <script type="text/javascript">
+        var contScroll=[];
+        function loaded () {
+            $('.swiper-wrapper .swiper-slide').each(function(){
+                var index = $(this).index();
+                contScroll[index]= new IScroll('.cont_wraper_'+index,{
+                    scrollbars: true,
+                    mouseWheel: true,
+                    interactiveScrollbars: true,
+                    shrinkScrollbars: 'scale',
+                    fadeScrollbars: true,click: true 
+                });
+            });
+        }
+        document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+    </script>
+    <script src="plugin/jquery/jquery-1.11.0.js"></script>
+    <script src="plugin/jSignature/jSignature.js"></script>
+    <!--script src="plugin/jSignature/jSignature.CompressorBase30.js"></script-->
+    <script src="plugin/jSignature/jSignature.CompressorSVG.js"></script>
+    <script src="plugin/jSignature/jSignature.UndoButton.js"></script> 
+    <!--script src="plugin/jSignature/signhere/jSignature.SignHere.js"></script--> 
+</head>
+<body onload="loaded()">
+    <div class="swiper-title">
+        <span class="active">随心还</span><img src="images/right-arrow.png" alt=""><span>风险提示函</span><img src="images/right-arrow.png" alt=""><span>助贷协议</span><img src="images/right-arrow.png" alt=""><span>三方协议</span>
+    </div>
+    <div class="swiper-container step_swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide swiper-no-swiping">
+                <div class="cont_wraper cont_wraper_0">
+                    <div>
+                        <div class="txt-wrap">
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持甲方有责任在顾问过程中给予乙方积极配合与支持甲方有责任在顾问过程中给予乙方积极配</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持合与支持甲方有责任在顾问过程中给予乙</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                        </div>
+                    </div>
+                </div>
+                <a href="javascript:;" class="btn next_btn">下一步</a>
+            </div>
+            <div class="swiper-slide swiper-no-swiping">
+                <div class="cont_wraper cont_wraper_1">
+                    <div>
+                        <div class="txt-wrap">
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持甲方有责任在顾问过程中给予乙方积极配合与支持甲方有责任在顾问过程中给予乙方积极配</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持合与支持甲方有责任在顾问过程中给予乙</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                        </div>
+                    </div>
+                </div>
+                <a href="javascript:;" class="btn next_btn">下一步</a>
+            </div>
+            <div class="swiper-slide swiper-no-swiping">
+                <div class="cont_wraper cont_wraper_2">
+                    <div>
+                        <div class="txt-wrap">
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持甲方有责任在顾问过程中给予乙方积极配合与支持甲方有责任在顾问过程中给予乙方积极配</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持合与支持甲方有责任在顾问过程中给予乙</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                        </div>
+                    </div>
+                </div>
+                <a href="javascript:;" class="btn next_btn">下一步</a>
+            </div>
+            <div class="swiper-slide swiper-no-swiping">
+                <div class="cont_wraper cont_wraper_3">
+                    <div>
+                        <div class="txt-wrap">
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持甲方有责任在顾问过程中给予乙方积极配合与支持甲方有责任在顾问过程中给予乙方积极配</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持合与支持甲方有责任在顾问过程中给予乙</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <p class="p_style7">甲方权利和义务：</p>
+                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                            <img id="sign_test" src="" alt="">
+                        </div>
+                    </div>
+                </div>
+                <a href="javascript:;" class="btn sign_btn">签名</a>
+                <div class="phone_wrap">
+                    <div class="p_line one_px_border"><span>手机号码：</span><span>18300004535</span></div>
+                    <div class="p_line one_px_border"><span>验证码：</span><input type="text" class="code_input"><input type="button" value="获取验证码" class="get_code"></div>
+                    <a href="javascript:;" class="p_a_tips">没有收到点击获取语音验证码</a>
+                </div>
+                <a href="javascript:;" class="btn commit_btn">提交</a>
+            </div>
+        </div>
+    </div>
+    <div class="sign_panel">
+        <div class="img_wrap">
+            <img class="exit_full_screen" src="images/exit-full-screen.png" alt="">
+            <img class="full_screen" src="images/full-screen.png" alt="">
+        </div>
+        <div id="signature"></div>
+        <div class="btn_wrap">
+            <a href="javascript:;" class="btn a_confirm">确认</a>
+            <a href="javascript:;" class="btn a_resign">重写</a>
+        </div>
+    </div>
+    <script>
+        $(function(){
+            var stepSwiper = new Swiper('.step_swiper', {
+                autoHeight: true,
+            });
+            $('.code_input').on('input propertychange',function(){
+                if(this.value.length>0){
+                    $('.commit_btn').addClass('active');
+                }else{
+                    $('.commit_btn').removeClass('active');
+                }
+            });
+            /*获取验证码*/
+            $('.get_code').on('tap',function(){
+                getCode(this,'.code_input',60,function(){
+                    console.log('send msg..');
+                });
+            });
+            /*签名*/
+            $('.sign_btn').on('tap',function(){
+                $('.sign_panel').addClass('sign_panel_show');
+                $("#signature").jSignature({color:"#aaa",lineWidth:5,width:"100%",height:"100%"});
+                //$("#signature").jSignature("clear");
+            });
+            /*签名确认*/
+            $('.sign_panel .a_confirm').on('tap',function(){
+                var signData = $("#signature").jSignature("getData","image/svg+xml;base64");
+                console.log(signData);
+                $('#sign_test').attr('src','data:'+signData[0]+','+signData[1]);
+                contScroll[3].refresh();
+                $('.sign_panel').removeClass('sign_panel_show');
+            });
+            /*签名清楚*/
+            $('.sign_panel .a_resign').on('tap',function(){
+               $("#signature").jSignature("clear");
+            });
+            /*头部导航*/
+            $('.swiper-title>span').on('tap',function(e){
+                var this_index = $(this).index()/2;
+                var curr_index = $('.swiper-title>span.active').index()/2;
+                if(this_index<curr_index){
+                    stepSwiper.slideTo((this_index),200,true);
+                    $('.swiper-title>span').removeClass('active');
+                    $(this).addClass('active');    
+                }
+                
+            });
+            /*下一步*/
+            $('.next_btn').each(function(){
+                var slideIndex = Number($(this).parents('.swiper-slide').index());
+                $(this).on('tap',{index:slideIndex},function(e){
+                    stepSwiper.slideTo((e.data.index+1),200,true);
+                    $('.swiper-title>span').removeClass('active');
+                    $('.swiper-title>span').eq(e.data.index+1).addClass('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
