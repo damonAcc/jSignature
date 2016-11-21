@@ -49,6 +49,11 @@
 
         .sign_page{position: fixed;z-index:2;top:0;left: 0; width: 100%;height: 100%;display: none;}
         .sign_page_show{display: block;}
+
+        .t-protocal{padding: 0.1rem 0.32rem 0.2rem 0.32rem;margin: 0.3rem auto;font-size: 0.22rem;color: #232328;}
+        .t-protocal table{width: 100%;border: 1px solid #ddd;}
+        .t-protocal table td{border-bottom: 1px solid #ddd;padding: 4px 6px;word-break: break-all;}
+        .t-protocal .t_title{text-align: center;color: #232328;}
     </style>
     <script type="text/javascript">
         var contScroll=[];
@@ -86,7 +91,7 @@
                             <table border="0" cellpadding="0" cellspacing="0" width="100%"
                                 align="center">
                                 <tr>
-                                    <td align="center"><font size="4"><b>随心还服务申请书</b></font></td>
+                                    <td align="center"><b>随心还服务申请书</b></td>
                                 </tr>
                                 <tr>
                                     <td align="left">深圳市佰仟金融服务有限公司并贷款人：</td>
@@ -282,27 +287,147 @@
             <div class="swiper-slide swiper-no-swiping">
                 <div class="cont_wraper cont_wraper_3">
                     <div>
-                        <div class="txt-wrap">
-                            <p class="p_style7">甲方权利和义务：</p>
-                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持甲方有责任在顾问过程中给予乙方积极配合与支持甲方有责任在顾问过程中给予乙方积极配</p>
-                            <p class="p_style7">甲方权利和义务：</p>
-                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持合与支持甲方有责任在顾问过程中给予乙</p>
-                            <p class="p_style7">甲方权利和义务：</p>
-                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持方积极配合与支持</p>
-                            <p class="p_style7">甲方权利和义务：</p>
-                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
-                            <p class="p_style7">甲方权利和义务：</p>
-                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
-                            <p class="p_style7">甲方权利和义务：</p>
-                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
-                            <p class="p_style7">甲方权利和义务：</p>
-                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
-                            <p class="p_style7">甲方权利和义务：</p>
-                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
-                            <p class="p_style7">甲方权利和义务：</p>
-                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
-                            <p class="p_style7">甲方权利和义务：</p>
-                            <p class="p_style8">甲方有责任在顾问过程中给予乙方积极配合与支持</p>
+                        <div class="txt-wrap t-protocal">
+                            <!-- Apply begin -->
+                            <table class="t-protocal" cellpadding="0" cellspacing="0">
+                                <tr><td class="t_title"><b>个人现金分期贷款申请表</b></td></tr>
+                                <tr><td><b>协议编码:</b>${contractNo!}</td></tr>
+                                <tr><td><b>申请日期:</b>${applyDate!}</td></tr>
+                                <tr><td>销售点代码:${stores!}</td></tr>
+                                <tr><td>销售点名称:${storesName!}</td></tr>
+                                <tr><td>销售顾问代码:${createUser!}</td></tr>
+                                <tr><td>申请类别:${applyType!}</td></tr>
+                                <tr><td>过去在本公司有过几次贷款申请:${severalTimes!'0'}</td></tr>
+                                <tr><td>销售点地址:${storesAddress!}</td></tr>
+                                <tr><td>产品代码:${productId!}</td></tr>
+                                <tr><td>贷款用途:${businessTotalUseTo!}</td></tr>
+                                <tr><td class="t_title"><b>个人资料</b></td></tr>
+                                <tr><td>1.姓名:${customerName!}</td></tr>
+                                <tr><td>2.性别:${sex!}</td></tr>
+                                <tr><td>3.身份证号码:${certId!}</td></tr>
+                                <tr><td>4.发证机关:${issueInstitution!}</td></tr>
+                                <tr><td>5.身份证有效期至:${maturityDate!}</td></tr>
+                                <tr><td>6.社保号码/学生号码:</td></tr>
+                                <tr><td>7.教育程度:${eduExperience!}</td></tr>
+                                <tr><td>8.住宅/宿舍电话:${familyTel!}</td></tr>
+                                <tr><td>9.住宅电话登记人:${phoneMan!}</td></tr>
+                                <tr><td>10.手机:${mobileTelephone!}</td></tr>
+                                <tr><td>11.电子邮箱:${emailAdd!}</td></tr>
+                                <tr><td>12.QQ号码:${qqNo!}</td></tr>
+                                <tr><td>13.婚姻状况:${marriage!}</td></tr>
+                                <tr><td>14.子女数目:${childrenTotal!}</td></tr>
+                                <tr><td>15.住房状况:${house!}</td></tr>
+                                <tr><td>16.户籍地址:省/直辖市:${nativePlaceName!}</td></tr>
+                                <tr><td>17.镇/乡:${villageTown!}</td></tr>
+                                <tr><td>18.街道/村:${street!}</td></tr>
+                                <tr><td>19.小区/楼盘:${community!}</td></tr>
+                                <tr><td>20.栋/单元/房间号:${cellNo!}</td></tr>
+                                <tr><td>21.现居住地址:省/直辖市:${familyAddName!}</td></tr>
+                                <tr><td>22.镇/乡:${countryside!}</td></tr>
+                                <tr><td>23.街道/村:${villageCenter!}</td></tr>
+                                <tr><td>24.小区/楼盘:${plot!}</td></tr>
+                                <tr><td>25.栋/单元/房间号:${room!}</td></tr>
+                                <tr><td>26.现居住地址是否与户籍地址相同:${flagNowAddSameNativeAdd!}</td></tr>
+                                <tr><td><b>现金贷款服务内容</b></td></tr>
+                                <tr><td>27.贷款本金(元):${businessTotalPrice!}</td></tr>
+                                <tr><td>28.分期期数:${periods!}</td></tr>
+                                <tr><td>29.每月还款额(元):${monthRepayment!}</td></tr>
+                                <tr><td>30.是否申请参加保险:${creditCycle!}</td></tr>
+                                <tr><td>31.保险公司名称:${bxCompanyName!}</td></tr>
+                                <tr><td>32.每月还款日:${repaymentMonthDateStr!}</td></tr>
+                                <tr><td>33.月贷款利率:${monthlyRate!}</td></tr>
+                                <tr><td>34.首次还款额:${stampDuty!}</td></tr>
+                                <tr><td>35.首次还款日:${firstRepaymentDateStr!}</td></tr>
+                                <tr><td>36.月客户服务费率:${monthlyServiceRate!}</td></tr>
+                                <tr><td>37.月财务管理费率:${monthlyFinanceRate!}</td></tr>
+                                <tr><td>38.月增值服务费率:${monthlyInsuranceRate!}</td></tr>
+                                <tr><td>39.印花税(%):</td></tr>
+                                <#if creditCycle="是">
+                                <tr>
+                                    <td>
+                                        <span style="color:${bxContentColor!};">
+                                        ${bxContent!}
+                                        </span>
+                                    </td>
+                                </tr>
+                                </#if>
+                                <tr><td class="t_title"><b>还款账户信息</b></td></tr>
+                                <tr><td>40.指定还款账户账号:${payBackBankNo!}</td></tr>
+                                <tr><td>41.开户银行:${payBackBankName!}</td></tr>
+                                <tr><td>42.户名:${payBackAccountName!}</td></tr>
+                                <tr><td>43.借款人银行账户信息(用于收款、扣款):</td></tr>
+                                <tr><td>户名:${accountName!}</td></tr>
+                                <tr><td>开户行:${bankName!}</td></tr>
+                                <tr><td>账号:${bankNo!}</td></tr>
+                                <tr><td>44.银行代扣还款:${payWay!}</td></tr>
+                                <tr>
+                                    <td>
+                                        本人选择银行代扣还款，表明本人同意并授权深圳市佰仟金融服务有限公司可通过银行从本人指定的借款人银行账户(如第43项所示)将每月还款额(如第29项所示)及其它应还款项转入指定还款账户(如第40、41、42项所示)。
+                                        本人同意此扣款授权同时适用于之前由深圳市佰仟金融服务有限公司提供服务并已签订的一份或多份贷款合同，即深圳市佰仟金融服务有限公司可通过银行从本人指定的上述银行账户内划扣本人在各合同下应偿还的相关款项。本人同意该账户同时可用于因提前还款等引起的资金往来。
+                                    </td>
+                                </tr>
+                                <tr><td class="t_title"><b>单位信息</b></td></tr>
+                                <tr><td>45.单位/个体全称:${workCorp!}</td></tr>
+                                <tr><td>46.任职部门:${employRecord!}</td></tr>
+                                <tr><td>47.职位:${position!}</td></tr>
+                                <tr><td>48.行业类别:${unitKind!}</td></tr>
+                                <tr><td>49.单位性质:${cellProperty!}</td></tr>
+                                <tr><td>50.单位电话:${workTelAreaCode!}</td></tr>
+                                <tr><td>51.单位地址:省/直辖市:${workAdd!}</td></tr>
+                                <tr><td>52.镇/乡:${unitCountryside!}</td></tr>
+                                <tr><td>53.街道/村:${unitStreet!}</td></tr>
+                                <tr><td>54.小区/楼盘:${unitRoom!}</td></tr>
+                                <tr><td>55.栋/单元/房间号:${unitNo!}</td></tr>
+                                <tr>
+                                    <td>
+                                        56.邮寄地址:
+                                        <input type="radio"  name="checkBank" checked="checked">居住地址
+                                        <input type="radio"  name="checkBank">单位地址
+                                    </td>
+                                </tr>
+                                <tr><td>57.总工作经验(年):${jobTotal!}</td></tr>
+                                <tr><td>58.现单位工作/个体营业时间(月):${jobTime!}</td></tr>
+                                <tr><td>59.在现单位是否购买了社保:${flagBuySocialSecurity!}</td></tr>
+                                <tr><td class="t_title"><b>配偶及家庭成员信息</b></td></tr>
+                                <tr><td>60.配偶姓名:${spouseName!}</td></tr>
+                                <tr><td>61.配偶移动电话:${spouseTel!}</td></tr>
+                                <tr><td>62.配偶单位名称:${spouseWorkCorp!}</td></tr>
+                                <tr><td>63.配偶单位电话:${spouseWorkTel!}</td></tr>
+                                <tr><td>64.家庭成员名称:${kinshipName!}</td></tr>
+                                <tr><td>65.家庭成员类型:${relativeType!}</td></tr>
+                                <tr><td>66.家庭成员电话:${kinshipTel!}</td></tr>
+                                <tr><td>67.家庭成员联系地址:${kinshipAdd!}</td></tr>
+                                <tr><td class="t_title"><b>其他联系人信息</b></td></tr>
+                                <tr><td>68.联系人姓名:${otherContact!}</td></tr>
+                                <tr><td>69.与申请人关系:${contactRelation!}</td></tr>
+                                <tr><td>70.联系电话:${contactTel!}</td></tr>
+                                <tr><td class="t_title"><b>收入及支出信息</b></td></tr>
+                                <tr><td>71.月收入总额(元):${familyMonthIncomeTotal!}</td></tr>
+                                <tr><td>72.其他收入(元/月):${otherRevenue!}</td></tr>
+                                <tr><td>73.家庭月收入(元):${familyMonthIncome!}</td></tr>
+                                <tr><td>74.个人月支出(元/月):${alimony!}</td></tr>
+                                <tr><td class="t_title"><b>其他信息</b></td></tr>
+                                <tr><td>提供的申请材料:${photoTypeName!}</td></tr>
+                                <tr><td>产品附录</td></tr>
+                                <tr><td>是否已签署授权书:是</td></tr>
+                                <tr>
+                                    <td>
+                                     本人具有完全民事行为能力签署本申请表并承担相应责任。本人已仔细阅读并完全了解《个人现金分期贷款三方协议》，并且自愿遵守相关的协议规定
+                                     <br>
+                                     本人保证在此表上填写、确认的内容及向贷款人、佰仟金融提供的所有相关资料全部真实、有效，如本人提供虚假资料，将承担由此引起的一切责任及损失。
+                                     本人在此同意贷款人和佰仟金融按照相关法律法规的规定，向有权机构报送本人的个人信用信息，包括但不限于本申请表项下的信息，
+                                     同时，授权贷款人和佰仟金融向任何可能的来源查询本人及配偶的与贷款申请有关的个人信息和个人信用信息，相关查询结果的用途将用于贷款审查和贷款管理。
+                                     <br>
+                                     本人同意如因单方面取消申请或不具备借款条件，申请不获批准，本表格及所有已提交的资料无须退还本人，由佰仟金融处理。贷款人有权拒绝本贷款申请而无须给予任何原因解释
+                                    </td>
+                                </tr>
+                                <tr><td>销售顾问姓名:${saUserName!}</td></tr>
+                                <tr><td>销售顾问签名:${saUserName!}</td></tr>
+                                <tr><td>销售顾问联系方式:${mobileTel!}</td></tr>
+                                <tr><td>申请人签名:${customerName!}</td></tr>
+                                <tr><td>${applySignDate!}</td></tr>
+                            </table>
+                            <!-- Apply end -->
                             <img id="sign_test" src="" alt="">
                         </div>
                     </div>
@@ -317,8 +442,18 @@
             </div>
         </div>
     </div>
-    <iframe class="sign_page" src="sign.html"></iframe>
+    <!-- <iframe class="sign_page" src="sign.html"></iframe> -->
+    <iframe class="sign_page" src="sign(竖).html"></iframe>
     <script>
+        window.onorientationchange = function(){
+            //alert(window.orientation);
+            switch(window.orientation){
+                case -90:alert("横屏:" + window.orientation);break;
+                case 90:alert("横屏:" + window.orientation);break;
+                case 0:alert("竖屏:" + window.orientation);break;
+                case 180:alert("竖屏:" + window.orientation);break;
+            }
+        }
         $(function(){
             var stepSwiper = new Swiper('.step_swiper', {
                 autoHeight: true,
@@ -333,7 +468,7 @@
             });
             /*获取验证码*/
             $('.get_code').on('tap',function(){
-                getCode(this,'.code_input',60,function(){
+                getCode(this,60,function(){
                     console.log('send msg..');
                 });
             });

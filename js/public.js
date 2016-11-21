@@ -51,21 +51,19 @@ function getCodefun(obj,phone,time){
     return me;
 }
 /*获取验证码 2,button*/
-function getCode(btn,phone,time,callbak){
+function getCode(btn,time,fn){
     var me = {};
     me.btn = btn;
-    me.phone = phone;
     me.wait= time;
-    me.callbak = callbak;
-
+    me.callBack = fn;
     me.show = function(obj) {
-        $(me.btn).attr("disabled",true);//设置button不可用
+        $(me.btn).attr("disabled","disabled");//设置button不可用
         me.wait--;
-        $(me.btn).val(me.wait+"秒").css('color','#bcbcbc');
+        $(me.btn).val(me.wait+"秒").css('color','#999');
         if(me.wait == 0){
             $(me.btn).removeAttr("disabled");//设置button不可用
             $(me.btn).val("重新获取").css('color','#0aaefd');
-            me.wait = 60;
+            me.wait = time;
             return ;
         }else{
             setTimeout(function(){
@@ -73,8 +71,10 @@ function getCode(btn,phone,time,callbak){
             }, 1000);
         }
     }
-    me.callbak();
-    me.show();
+    if($(me.btn).attr("disabled")!="disabled"){//fix button disabled='disabled' 失效
+        me.callBack();
+        me.show();
+    }
 }
 
 

@@ -9,34 +9,24 @@
     <link href="css/css.css" rel="stylesheet" type="text/css">
     <script src="js/public.js"></script>
     <style>
-        .sign_panel{position: fixed;z-index:2;top:0;left: 0;right:0;bottom: 0;background:rgba(0,0,0,1);-webkit-animation: animDialog .4s ease-out;animation: animDialog .4s ease-out;-webkit-backface-visibility: hidden;backface-visibility: hidden;-webkit-perspective: 1000;perspective: 1000;-webkit-transform-style: preserve-3d;}
-        #signature{position: absolute;top: 1rem;bottom: 1rem;left: 1.2rem;right: 0.4rem;z-index: 3;border: 1px solid #999;}
-
-        .sign_panel .img_wrap{position: absolute;bottom:0.8rem;width: 100%;z-index: 4;}
+        .sign_panel{position: fixed;z-index:2;top:0;left: 0;right:0;bottom: 0;background:rgba(0,0,0,.84);-webkit-animation: animDialog .4s ease-out;animation: animDialog .4s ease-out;-webkit-backface-visibility: hidden;backface-visibility: hidden;-webkit-perspective: 1000;perspective: 1000;-webkit-transform-style: preserve-3d;}
+        #signature{position: absolute;top:0;bottom: 0;left: 0;right: 0;z-index: 3;}
+        .sign_panel .img_wrap{position: absolute;top:0.4rem;width: 100%;z-index: 4;}
         .sign_panel .img_wrap>img{position: absolute;right: 0.4rem;width: 0.5rem;height: 0.5rem;}
-
-        .sign_panel .btn_wrap{position: absolute;bottom:50%;width: 100%;z-index: 4;left: -36%;transform: rotate(90deg);}
+        /* 横屏 */
+        /*@media screen and (orientation:landscape){
+            .sign_panel .img_wrap .exit_full_screen{display: block;}
+            .sign_panel .img_wrap .full_screen{display: none;}
+        }*/
+        /* 竖屏 */
+        /*@media screen and (orientation:portrait){
+            .sign_panel .img_wrap .exit_full_screen{display: none;}
+            .sign_panel .img_wrap .full_screen{display: block;}
+        }*/
+        .sign_panel .btn_wrap{position: absolute;bottom:1.2rem;width: 100%;z-index: 4;}
         .sign_panel .btn_wrap>a{line-height: 0.6rem;width: 1.3rem;}
         .sign_panel .a_confirm{background-color: #00c0ef;position: absolute;left: 25%;margin-left:-0.65rem;}
         .sign_panel .a_resign{background-color: #fff;color:#00c0ef;border: 1px solid #00c0ef;position: absolute;right: 25%;margin-right:-0.65rem; }
-
-        /* 横屏 */
-        @media screen and (orientation:landscape){
-            .sign_panel .img_wrap{top:0.4rem;width: 100%;z-index: 4;bottom:auto;}
-            /*.sign_panel .img_wrap .exit_full_screen{display: block;}
-            .sign_panel .img_wrap .full_screen{display: none;}*/
-            #signature{top:0.4rem;bottom: 1.2rem;left: 1rem;right: 1rem;z-index: 3;border: 1px solid #999;}
-            .sign_panel .btn_wrap{bottom:1rem;width: 100%;z-index: 4;transform: rotate(0deg);left: auto;top: auto;}
-            
-        }
-        /* 竖屏 */
-        @media screen and (orientation:portrait){
-            /*.sign_panel .img_wrap .exit_full_screen{display: none;}
-            .sign_panel .img_wrap .full_screen{display: block;}*/
-            /*#signature{top: 1rem;bottom: 1rem;left: 1.2rem;right: 0.4rem;z-index: 3;border: 1px solid #999;}
-            .sign_panel .btn_wrap{top:50%;width: 100%;z-index: 4;left: -36%;transform: rotate(90deg);}*/
-        }
-        #sign_test{display: none;position: fixed;z-index: 20;right: 0;}
     </style>
     <script src="plugin/jquery/jquery-1.11.0.js"></script>
     <script src="plugin/jSignature/jSignature.js"></script>
@@ -57,7 +47,6 @@
             <a href="javascript:;" class="btn a_resign">重写</a>
         </div>
     </div>
-    <img src="" alt="" id="sign_test">
     <script>
         $(function(){
             /*签名*/
@@ -69,7 +58,6 @@
                 var doc = window.parent.document;
                 var signImgWrap = doc.getElementById('sign_test');
                 signImgWrap.src = 'data:'+signData[0]+','+signData[1];
-                $('#sign_test').show();
                 window.parent.contScroll[3].refresh();
                 $(doc).find('.sign_page').removeClass('sign_page_show');
             });
@@ -79,12 +67,11 @@
             });
 
             $('.exit_full_screen').on('click',function(){
-                //alert(screen.orientation.type);
                 $("#signature").jSignature("clear");
                 var doc = window.parent.document;
-                window.parent.contScroll[3].refresh();
                 $(doc).find('.sign_page').removeClass('sign_page_show');
-                //screen.orientation.lock("portrait-secondary");
+                // alert(screen.orientation.type);
+                // screen.orientation.lock("portrait-secondary");
             });
             // $('.full_screen').on('click',function(){
             //     alert(screen.orientation.type);
