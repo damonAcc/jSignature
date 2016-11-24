@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>佰仟分期购</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=0">
+    <meta name="format-detection" content="telephone=no" />
+    <link href="css/public.css" rel="stylesheet" type="text/css">
+    <link href="css/css.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="plugin/iscroll/iscroll.js"></script>
+    <script type="text/javascript" src="plugin/zepto/zepto.js"></script>
+    <script type="text/javascript" src="plugin/zepto/touch.js"></script>
+    <script src="js/public.js"></script>
+    <script type="text/javascript">
+        var aScroll;
+        function loaded () {
+            aScroll = new IScroll('#body-wrapper',{
+                scrollbars: true,
+                mouseWheel: true,
+                interactiveScrollbars: true,
+                shrinkScrollbars: 'scale',
+                fadeScrollbars: true,click: true 
+            });
+        }
+        document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+    </script>
+    <style>
+        body{background-color:#fff;}
+        .pass_img {width: 3.14rem;height: 3.14rem;margin: 0.8rem auto 0.48rem;display: block;}
+        .p_style5 {font-size: 0.4rem;color: #323232;margin:0 auto;font-weight: bold;}
+        .pass_btn {background-color: #ff6f34;margin: 0.9rem 0 0;}
+    </style>
+</head>
+<body onload="loaded()">
+    <article id="body-wrapper">
+        <div>
+            <div class="main_contain">
+                <img class="pass_img" src="images/signed.png" alt="">
+                <p class="p_style5">合同已签署！</p>
+            </div>
+        </div>
+    </article>
+    <script>
+        
+    </script>
+</body>
+</html>

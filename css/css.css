@@ -12,7 +12,7 @@ body{background-color: #f5f5f5;}
 .p_style8{font-size:0.2rem;color: #818185;}
 
 /*按钮*/
-.btn{position: relative;display: block;margin:0 auto;font-size: 0.32rem;text-align: center;color: #fff;line-height:0.8rem;border-radius: 3px;}
+.btn{position: relative;display: block;margin:0 auto;font-size: 0.32rem;text-align: center;color: #fff;line-height:0.8rem;border-radius: 2px;}
 .btn:after {content: " ";width: 200%;height: 200%;position: absolute;top: 0;left: 0;border: 1px solid rgba(0,0,0,0.2);-webkit-transform: scale(0.5);transform: scale(0.5);-webkit-transform-origin: 0 0;transform-origin: 0 0;box-sizing: border-box;border-radius: 10px;}  
 .save_btn{background-color: #3c8dbc;margin: 0.4rem 0 0;}
 .save_btn:active{background-color: #2777a5;}
