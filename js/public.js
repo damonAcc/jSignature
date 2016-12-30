@@ -52,33 +52,60 @@ function getCodefun(obj,phone,time){
     return me;
 }
 /*获取验证码 2,button*/
-function getCode(btn,time,fn){
+var getCode = function(btn,time,fn,specialTimeObj){
     var me = {};
     me.btn = btn;
     me.wait= time;
     me.callBack = fn;
-    me.show = function(obj) {
+    me.specialTimeObj = specialTimeObj;
+    me.show = function() {
         $(me.btn).attr("disabled","disabled");//设置button不可用
+
+        if(me.specialTimeObj&&me.wait==me.specialTimeObj.specialTime){
+            me.specialTimeObj.fn();
+        }
+        
         me.wait--;
         $(me.btn).val(me.wait+"秒").css('color','#999');
-        if(me.wait == 0){
+        if(me.wait == -1){
+            $(me.btn).removeAttr("disabled");//设置button不可用
+            $(me.btn).val("获取").css('color','#0aaefd');
+            return ;
+        }else if(me.wait == 0){
             $(me.btn).removeAttr("disabled");//设置button不可用
             $(me.btn).val("重新获取").css('color','#0aaefd');
             me.wait = time;
             return ;
-        }else{
+        }else if(me.wait>0){
             setTimeout(function(){
-                me.show(me.btn);
+                me.show();
             }, 1000);
         }
-    }
-    if($(me.btn).attr("disabled")!="disabled"){//fix button disabled='disabled' 失效
-        me.callBack();
-        me.show();
-    }
+    };
+    me.init = function(){
+        if($(me.btn).attr("disabled")!="disabled"){//fix button disabled='disabled' 失效
+            me.callBack();
+            me.show();
+        }
+    };
+    me.reset = function(){
+        me.wait = 0;
+    };
+    me.init();
+    return me;
 }
 
-
+/*提示，弹窗*/
+//tips('数据错误','tips_center',1500);
+//tips('数据错误','tips_left',1500);
+function tips(msg,className,time){
+    var tipsDiv = $('<div class="tips '+className+'"></div>');
+    $('body').append(tipsDiv);
+    tipsDiv.html(msg).addClass('tips_show');
+    setTimeout(function(){
+        tipsDiv.removeClass('tips_show').remove();
+    },time);
+}
 //通用提示
 function commonTips(className,msg,time){
     var _obj = $('.'+className);
