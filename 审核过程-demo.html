@@ -661,39 +661,42 @@
         
     </script>
     <script type="text/javascript">  
+        /****跨域demo****/
+        /****web端  F:/damon/员工贷文件/html/jSignature/审核过程-demo.html****/
+        /****服务器端  F:\damon\员工贷文件\html\ydl改版\js****/
         /*跨域1*/
-        // $.ajax({  
-        //     dataType:"JSONP",  
-        //     jsonp:"callback", 
-        //     jsonpCallback:"fun", 
-        //     type:"get",  
-        //     url:"http://10.80.2.117:8082/js/test.js", 
-        //     data:{},
-        //     success:function(response){  
-        //         console.log(response);  
-        //     },  
-        //     error:function(e){  
-        //         console.log(e.status+','+ e.statusText);  
-        //     }  
-        // });
+        $.ajax({  
+            dataType:"JSONP",  
+            jsonp:"callback", 
+            jsonpCallback:"fun", 
+            type:"get",  
+            url:"http://10.80.2.144:8082/js/test.js", 
+            data:{},
+            success:function(response){  
+                console.log(response);  
+            },  
+            error:function(e){  
+                console.log(e.status+','+ e.statusText);  
+            }  
+        });
         
         /*跨域2*/
-        function jsonpCallback(result) { 
-            console.log(result); 
-            for(var i in result) {  
-                console.log(i+":"+result[i]);  
-            }  
-        } 
-        function fun(result) { 
-            console.log(result); 
-            for(var i in result) {  
-                console.log(i+":"+result[i]);  
-            }  
-        }  
-        var JSONP=document.createElement("script");  
-        JSONP.type="text/javascript";  
-        JSONP.src="http://10.80.2.117:8082/js/test.js?callback=jsonpCallback&fun=fun";  
-        document.getElementsByTagName("head")[0].appendChild(JSONP);  
+        // function jsonpCallback(result) { 
+        //     console.log(result); 
+        //     for(var i in result) {  
+        //         console.log(i+":"+result[i]);  
+        //     }  
+        // } 
+        // function fun(result) { 
+        //     console.log(result); 
+        //     for(var i in result) {  
+        //         console.log(i+":"+result[i]);  
+        //     }  
+        // }  
+        // var JSONP=document.createElement("script");  
+        // JSONP.type="text/javascript";  
+        // JSONP.src="http://10.80.2.144:8082/js/test.js?callback=jsonpCallback&fun=fun";  
+        // document.getElementsByTagName("head")[0].appendChild(JSONP);  
     </script> 
 </body>
 </html>
